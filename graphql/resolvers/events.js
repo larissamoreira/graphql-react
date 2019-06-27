@@ -24,7 +24,10 @@ module.exports = {
             });
     },
 
-    createEvent: args => {
+    createEvent: (args, req) => {
+        if (!req.isAuth) {
+            throw new Error('Unautheticated');
+        }
         const event = new Event({
             title: args.EventInput.title,
             description: args.EventInput.description,
